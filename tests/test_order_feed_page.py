@@ -31,7 +31,7 @@ class TestOrderFeedPage:
         counter_before = order_feed_page.get_counter_number_of_complete_all_time_orders()
         login_page = LoginPage(driver)
         login_page.login_existing_user()
-        order_feed_page.make_an_order()
+        order_feed_page.make_an_order_and_get_number()
         counter_after = order_feed_page.get_counter_number_of_complete_all_time_orders()
         assert int(counter_after) > int(counter_before)
 
@@ -43,15 +43,15 @@ class TestOrderFeedPage:
         counter_before = order_feed_page.get_counter_number_of_complete_today_orders()
         login_page = LoginPage(driver)
         login_page.login_existing_user()
-        order_feed_page.make_an_order()
+        order_feed_page.make_an_order_and_get_number()
         counter_after = order_feed_page.get_counter_number_of_complete_today_orders()
         assert int(counter_after) > int(counter_before)
 
     @allure.title('Проверка, что после оформления заказа его номер появляется в разделе «В работе»')
     @allure.description('Проверяем, что после создании нового заказа его номер появляется в разделе «В работе» на '
                         'странице «Лента заказов», проверяем, что номер заказа из модального окна есть в нужном списке')
-    def test_that_order_number_in_progress_list(self, driver, create_and_delete_user):
+    def test_that_order_number_in_progress_list(self, driver):
         login_page = LoginPage(driver)
-        login_page.login_new_user()
+        login_page.login_existing_user()
         order_feed_page = OrderFeedPage(driver)
         assert order_feed_page.find_order_number_in_the_in_progress_list() is True

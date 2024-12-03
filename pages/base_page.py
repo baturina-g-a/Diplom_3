@@ -29,10 +29,9 @@ class BasePage:
         WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(locator))
         self.driver.find_element(*locator).click()
 
-    @allure.step('Клик по элементу, когда он стал кликабелен с использованием скрипта')
-    def click_to_visibility_element(self, locator):
-        element = self.find_element_with_wait(locator)
-        self.driver.execute_script('arguments[0].click();', element)
+    @allure.step('Ждем присутствия элемента на странице')
+    def wait_presence_of_element_located(self, locator):
+        WebDriverWait(self.driver, 5).until(expected_conditions.presence_of_element_located(locator))
 
     @allure.step('Клик по элементу для FireFox')  # взяла метод с вебинара, возможно, надо будет поправить под себя
     def click_to_element_for_firefox(self, locator):

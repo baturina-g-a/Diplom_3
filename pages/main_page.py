@@ -1,5 +1,3 @@
-import time
-
 import allure
 
 import data
@@ -38,9 +36,13 @@ class MainPage(BasePage):
         self.click_virtual_mouse(MainPageLocators.INGREDIENT_BUN)
         return self.get_text_from_element(MainPageLocators.OPEN_MODAL_WINDOW_WITH_INGREDIENT_DETAILS)
 
-    @allure.step('Клик на крест в модальном окне')
-    def click_on_x_button_in_modal_window(self):
-        # time.sleep(2)
+    @allure.step('Клик на крест в модальном окне с деталями ингредиента')
+    def click_on_x_button_in_modal_window_with_ingredient_details(self):
+        self.click_virtual_mouse(MainPageLocators.CLOSE_MODAL_WINDOW_BUTTON)
+        return self.check_invisibility_of_element_located(MainPageLocators.OPEN_MODAL_WINDOW_WITH_INGREDIENT_DETAILS)
+
+    @allure.step('Клик на крест в модальном окне с деталями заказа')
+    def click_on_x_button_in_modal_window_with_order_details(self):
         self.click_virtual_mouse(MainPageLocators.CLOSE_MODAL_WINDOW_BUTTON)
         return self.check_invisibility_of_element_located(MainPageLocators.OPEN_MODAL_WINDOW_WITH_INGREDIENT_DETAILS)
 
@@ -71,18 +73,13 @@ class MainPage(BasePage):
     def get_new_order_number(self):
         return self.get_text_from_element(MainPageLocators.NEW_ORDER_NUMBER)
 
-    @allure.step('Создание заказа')
-    def make_an_order(self):
-        self.drag_and_drop_ingredient_into_the_cart()
-        self.click_make_order_button()
-        self.click_on_x_button_in_modal_window()
-
     @allure.step('Создаем заказ и берём его номер')
     def make_an_order_and_get_number(self):
         self.drag_and_drop_ingredient_into_the_cart()
         self.click_make_order_button()
         self.implicitly_wait()
+        self.check_that_text_is_not_in_element(MainPageLocators.NEW_ORDER_NUMBER, '9999')
         self.check_an_order_was_create()
         new_order_number = self.get_new_order_number()
-        self.click_on_x_button_in_modal_window()
+        self.click_on_x_button_in_modal_window_with_order_details()
         return new_order_number

@@ -50,11 +50,11 @@ class OrderFeedPage(ProfilePage):
                                            data.STATUS_ORDER_IN_PROGRESS)
         self.check_that_text_is_not_in_element(OrderFeedPageLocators.ORDERS_LIST_IN_PROGRESS,
                                                data.STATUS_ORDER_IN_PROGRESS)
-        self.implicitly_wait()
+        self.wait_presence_of_element_located(OrderFeedPageLocators.ORDERS_LIST_IN_PROGRESS)
         orders_in_progress_list = self.find_elements_with_wait(OrderFeedPageLocators.ORDERS_LIST_IN_PROGRESS)
         result = None
         for order in orders_in_progress_list:
             numbers = order.text
-            if order_number == numbers:
+            if order_number in numbers:
                 result = True
         return result

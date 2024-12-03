@@ -46,4 +46,4 @@ class MainPageLocators:
                                            '@xmlns="http://www.w3.org/2000/svg" and contains(@fill,"F2F2F3")]')
 
     # overlay:
-    MODAL_OVERLAY = '//div[@class="Modal_modal_overlay__x2ZCr" and last()]'
+    MODAL_OVERLAY = '//div[@class="Modal_modal_overlay__x2ZCr"]'

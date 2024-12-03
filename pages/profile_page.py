@@ -39,6 +39,6 @@ class ProfilePage(MainPage):
 
     @allure.step('Берём номер заказа из истории заказов пользователя')
     def get_order_number_from_user_orders_history(self):
-        self.make_an_order()
+        self.make_an_order_and_get_number()
         self.click_orders_history_button()
         return self.get_text_from_element(ProfilePageLocators.LAST_ORDER_IN_HISTORY)

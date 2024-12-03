@@ -33,7 +33,7 @@ class TestMainPage:
     def test_close_window_with_ingredient_details_by_click_on_x_button(self, driver):
         main_page = MainPage(driver)
         main_page.click_on_ingredient()
-        assert main_page.click_on_x_button_in_modal_window() is True
+        assert main_page.click_on_x_button_in_modal_window_with_ingredient_details() is True
 
     @allure.title('Проверка увеличения каунтера ингредиента при добавлении ингредиента в корзину')
     @allure.description('Проверяем, что при добавлении ингредиента в корзину его каунтер увеличивается, на примере '
